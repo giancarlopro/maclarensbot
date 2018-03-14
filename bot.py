@@ -9,7 +9,7 @@ def saymyname (bot, update):
 
 updater = Updater(token)
 
-updater.dispatcher.add_handler(CommandHandler('/saymyname', saymyname))
+updater.dispatcher.add_handler(CommandHandler('saymyname', saymyname))
 
 updater.start_webhook(listen="0.0.0.0", port=port, url_path=token)
 updater.bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
