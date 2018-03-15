@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from telegram.ext import CommandHandler
+from telegram.ext import CommandHandler, Dispatcher
 from telegram import Bot, Update
 
 app = Flask(__name__)
