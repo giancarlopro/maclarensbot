@@ -30,3 +30,7 @@ def webhook ():
     update = Update.de_json(json.loads(text), bot)
 
     dispatcher.process_update(update)
+
+@app.route('/')
+def wellcome ():
+    return "OK"
