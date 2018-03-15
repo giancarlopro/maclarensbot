@@ -18,7 +18,7 @@ def setup():
     dispatcher = Dispatcher(bot, None, workers=0)
     dispatcher.add_handler(CommandHandler('saymyname', saymyname))
 
-    updater.bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
+    bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
     return dispatcher
 
 @app.route('/' + str(token), methods=['GET', 'POST'])
