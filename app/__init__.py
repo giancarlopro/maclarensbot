@@ -12,15 +12,29 @@ port = int(os.environ.get('PORT', '443'))
 def saymyname (bot, update):
     update.message.reply_text(update.message.from_user.first_name)
 
+def debug (bot, update):
+    update.message.reply_text(update.message.chat_id)
+
 def setup():
     global token
     bot = Bot(token)
     
     dispatcher = Dispatcher(bot, None, workers=0)
     dispatcher.add_handler(CommandHandler('saymyname', saymyname))
+    dispatcher.add_handler(CommandHandler('debug', debug))
 
     # bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
     return dispatcher
+
+@app.route("/HKMLFFGP/sendjoninhas")
+def sendjoninhas ():
+    global token
+    bot = Bot(token)
+
+    maclarens_id = 0
+
+    bot.sendSticker(chat_id=maclarens_id, file_id="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
+    return "Ok"
 
 @app.route('/' + str(token), methods=['GET', 'POST'])
 def webhook ():
