@@ -24,6 +24,9 @@ def setup():
 
 @app.route('/' + str(token), methods=['GET', 'POST'])
 def webhook ():
+    global token
+    bot = Bot(token)
+    
     dispatcher = setup()
 
     text = request.data
