@@ -1,1 +1,1 @@
-web: gurnicorn app:app
+web: python -m gurnicorn app:app
