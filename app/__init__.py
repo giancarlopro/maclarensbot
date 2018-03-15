@@ -31,7 +31,7 @@ def sendjoninhas ():
     global token
     bot = Bot(token)
 
-    maclarens_id = 0
+    maclarens_id = "-1001240676821"
 
     bot.sendSticker(chat_id=maclarens_id, file_id="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
     return "Ok"
