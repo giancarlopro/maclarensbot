@@ -33,7 +33,7 @@ def sendjoninhas ():
 
     maclarens_id = "-1001240676821"
 
-    bot.sendSticker(chat_id=maclarens_id, file_id="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
+    bot.sendSticker(chat_id=maclarens_id, sticker="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
     return "Ok"
 
 @app.route('/' + str(token), methods=['GET', 'POST'])
