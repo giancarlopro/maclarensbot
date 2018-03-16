@@ -10,7 +10,7 @@ token = os.environ.get("TOKEN")
 port = int(os.environ.get('PORT', '443'))
 
 def saymyname (bot, update):
-    update.message.reply_text(update.message.from_user.first_name)
+    update.message.reply_text("Heisenberg")
 
 def debug (bot, update):
     update.message.reply_text(update.message.chat_id)
