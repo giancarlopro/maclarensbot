@@ -33,7 +33,7 @@ def sendjoninhas ():
 
     maclarens_id = "-1001240676821"
 
-    bot.sendMessage(chat_id=maclarens_id, text="It's for **JONINHAS**", parse_mode='Markdown')
+    bot.sendMessage(chat_id=maclarens_id, text="It's time for *Joninhas*", parse_mode='Markdown')
     bot.sendSticker(chat_id=maclarens_id, sticker="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
     return "Ok"
 
