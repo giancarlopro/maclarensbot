@@ -4,6 +4,8 @@ from flask import Flask, request
 from telegram.ext import CommandHandler, Dispatcher
 from telegram import Bot, Update
 
+from . import naointendo
+
 app = Flask(__name__)
 
 token = os.environ.get("TOKEN")
@@ -11,6 +13,10 @@ port = int(os.environ.get('PORT', '443'))
 
 def saymyname (bot, update):
     update.message.reply_text("Heisenberg")
+
+def naointendo (bot, update):
+    ni = naointendo.NaoIntendo()
+    bot.sendPhoto(ni.random_post())
 
 def debug (bot, update):
     update.message.reply_text(update.message.chat_id)
@@ -21,6 +27,7 @@ def setup():
     
     dispatcher = Dispatcher(bot, None, workers=0)
     dispatcher.add_handler(CommandHandler('saymyname', saymyname))
+    dispatcher.add_handler(CommandHandler('naointendo', naointendo))
     dispatcher.add_handler(CommandHandler('debug', debug))
 
     # bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
