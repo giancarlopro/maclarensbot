@@ -15,7 +15,7 @@ gunicorn = "*"
 flask = "*"
 python-telegram-bot = "*"
 requests = "*"
-beautifulsoup = "*"
+beautifulsoup4 = "*"
 
 
 [requires]
