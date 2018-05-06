@@ -4,7 +4,7 @@ from flask import Flask, request
 from telegram.ext import CommandHandler, Dispatcher
 from telegram import Bot, Update
 
-from . import naointendo
+from naointendo import NaoIntendo
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def saymyname (bot, update):
     update.message.reply_text("Heisenberg")
 
 def naointendo (bot, update):
-    ni = naointendo.NaoIntendo()
+    ni = NaoIntendo()
     update.message.reply_text(ni.random_post())
 
 def debug (bot, update):
@@ -50,7 +50,7 @@ def sendnaointendo ():
     bot = Bot(token)
 
     maclarens_id = "-1001240676821"
-    ni = naointendo.NaoIntendo()
+    ni = NaoIntendo()
 
     bot.sendMessage(chat_id=maclarens_id, text=ni.random_post(), parse_mode='Markdown')
     
