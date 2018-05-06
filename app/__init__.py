@@ -44,6 +44,18 @@ def sendjoninhas ():
     bot.sendSticker(chat_id=maclarens_id, sticker="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
     return "Ok"
 
+@app.route("/sni")
+def sendnaointendo ():
+    global token
+    bot = Bot(token)
+
+    maclarens_id = "-1001240676821"
+    ni = naointendo.NaoIntendo()
+
+    bot.sendMessage(chat_id=maclarens_id, text=ni.random_post(), parse_mode='Markdown')
+    
+    return ni.random_post()
+
 @app.route('/' + str(token), methods=['GET', 'POST'])
 def webhook ():
     global token
