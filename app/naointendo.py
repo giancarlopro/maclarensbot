@@ -1,4 +1,4 @@
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 import requests
 
 class NaoIntendo:
@@ -8,12 +8,16 @@ class NaoIntendo:
     def random_post(self):
         """Returns a url for one naointendo post"""
         res = requests.get(self.base_url)
-        soup = BeautifulSoup(res.text)
+        soup = BeautifulSoup(res.text, 'html.parser')
 
-        post = soup.find('item')
-        img = post.find('description')
+        for item in soup.findAll('item'):
+            desc = item.find('description')
+            if len(desc.text) > 0:
+                img_soup = BeautifulSoup(desc.text, 'html.parser')
+                try:
+                    img = img_soup.find('img')['src']
+                    return img
+                except:
+                    pass
 
-        url = str(img).split("src=\"")[1]
-        url = url.split('"')[0]
-
-        return url
+        return False
