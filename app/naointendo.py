@@ -16,7 +16,7 @@ class NaoIntendo:
                 img_soup = BeautifulSoup(desc.text, 'html.parser')
                 try:
                     img = img_soup.find('img')['src']
-                    return img
+                    return str(img).encode('utf8')
                 except:
                     pass
 
