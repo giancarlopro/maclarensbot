@@ -52,7 +52,7 @@ def sendnaointendo ():
     maclarens_id = "-1001240676821"
     ni = NaoIntendo()
 
-    bot.sendMessage(chat_id=maclarens_id, text=ni.random_post(), parse_mode='Markdown')
+    bot.sendMessage(chat_id=maclarens_id, text=ni.random_post())
     
     return ni.random_post()
 
