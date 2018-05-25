@@ -39,5 +39,7 @@ class NaoIntendo:
                     urls.append(str(img).encode('utf8'))
                 except:
                     pass
-
-        return urls[randint(0, 19)] if urls else False
+        try:
+            return urls[randint(0, 19)]
+        except:
+            return self.last_post()
