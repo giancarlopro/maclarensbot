@@ -51,8 +51,9 @@ def sendnaointendo ():
 
     maclarens_id = "-1001240676821"
     ni = NaoIntendo()
+    post = ni.random_post()
 
-    bot.sendPhoto(chat_id=maclarens_id, photo=ni.random_post())
+    bot.sendPhoto(chat_id=maclarens_id, photo=post['img'], caption=post['desc'])
     
     return ni.random_post()
 
