@@ -16,8 +16,10 @@ class NaoIntendo:
             if len(desc.text) > 0:
                 img_soup = BeautifulSoup(desc.text, 'html.parser')
                 try:
-                    img = img_soup.find('img')['src']
-                    return str(img).encode('utf8')
+                    img = str(img_soup.find('img')['src']).encode('utf8')
+                    p = str(img_soup.find('p').text).encode('utf8')
+
+                    return {'img': img, 'desc': p}
                 except:
                     pass
 
@@ -27,7 +29,7 @@ class NaoIntendo:
         """Returns a url for one naointendo post"""
         res = requests.get(self.base_url)
         soup = BeautifulSoup(res.text, 'html.parser')
-        urls = list()
+        urls = dict()
 
         for i in range(20):
             itens = soup.findAll('item')
@@ -35,11 +37,16 @@ class NaoIntendo:
             if len(desc.text) > 0:
                 img_soup = BeautifulSoup(desc.text, 'html.parser')
                 try:
-                    img = img_soup.find('img')['src']
-                    urls.append(str(img).encode('utf8'))
+                    img = str(img_soup.find('img')['src']).encode('utf8')
+                    p = str(img_soup.find('p').text).encode('utf8')
+
+                    urls[img] = p
                 except:
                     pass
         try:
-            return urls[randint(0, len(urls))]
+            i = randint(0, len(urls.keys()))
+            img = urls.keys()[i]
+            p = urls[img]
+            return {'img': img, 'desc': p}
         except:
             return self.last_post()
