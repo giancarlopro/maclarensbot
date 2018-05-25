@@ -27,10 +27,10 @@ class NaoIntendo:
         """Returns a url for one naointendo post"""
         res = requests.get(self.base_url)
         soup = BeautifulSoup(res.text, 'html.parser')
+        urls = list()
 
         for i in range(20):
             itens = soup.findAll('item')
-            urls = list()
             desc = itens[i].find('description')
             if len(desc.text) > 0:
                 img_soup = BeautifulSoup(desc.text, 'html.parser')
@@ -40,6 +40,6 @@ class NaoIntendo:
                 except:
                     pass
         try:
-            return urls[randint(0, 19)]
+            return urls[randint(0, len(urls))]
         except:
             return self.last_post()
