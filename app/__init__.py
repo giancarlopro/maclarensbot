@@ -16,7 +16,9 @@ def saymyname (bot, update):
 
 def naointendo (bot, update):
     ni = NaoIntendo()
-    update.message.reply_text(ni.random_post())
+    post = ni.random_post()
+    bot.sendPhoto(chat_id=update.message.chat.id, photo=post['img'], caption=post['desc'])
+    # update.message.reply_text(ni.random_post())
 
 def debug (bot, update):
     update.message.reply_text(update.message.chat_id)
