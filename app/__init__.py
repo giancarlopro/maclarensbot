@@ -55,7 +55,7 @@ def sendnaointendo ():
 
     bot.sendPhoto(chat_id=maclarens_id, photo=post['img'], caption=post['desc'])
     
-    return ni.random_post()
+    return 'Worked!'
 
 @app.route('/' + str(token), methods=['GET', 'POST'])
 def webhook ():
