@@ -17,7 +17,10 @@ def saymyname (bot, update):
 def naointendo (bot, update):
     ni = NaoIntendo()
     post = ni.random_post()
-    bot.sendPhoto(chat_id=update.message.chat.id, photo=post['img'], caption=post['desc'])
+    if post['img'][-4:] == '.gif':
+        bot.sendDocument(chat_id=update.message.chat.id, document=post['img'], caption=post['desc'])
+    else:
+        bot.sendPhoto(chat_id=update.message.chat.id, photo=post['img'], caption=post['desc'])
     # update.message.reply_text(ni.random_post())
 
 def debug (bot, update):
@@ -54,8 +57,11 @@ def sendnaointendo ():
     maclarens_id = "-1001240676821"
     ni = NaoIntendo()
     post = ni.random_post()
-
-    bot.sendPhoto(chat_id=maclarens_id, photo=post['img'], caption=post['desc'])
+    
+    if post['img'][-4:] == '.gif':
+        bot.sendDocument(chat_id=maclarens_id, document=post['img'], caption=post['desc'])
+    else:
+        bot.sendPhoto(chat_id=maclarens_id, photo=post['img'], caption=post['desc'])
     
     return 'Worked!'
 
