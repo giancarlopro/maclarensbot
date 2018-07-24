@@ -5,16 +5,17 @@ from telegram.ext import CommandHandler, Dispatcher
 from telegram import Bot, Update
 
 from naointendo import NaoIntendo
+from search import GoogleSearch
 
 app = Flask(__name__)
 
 token = os.environ.get("TOKEN")
 port = int(os.environ.get('PORT', '443'))
 
-def saymyname (bot, update):
+def saymyname(bot, update):
     update.message.reply_text("Heisenberg")
 
-def naointendo (bot, update):
+def naointendo(bot, update):
     ni = NaoIntendo()
     post = ni.random_post()
     if post['img'][-4:] == '.gif':
@@ -22,6 +23,11 @@ def naointendo (bot, update):
     else:
         bot.sendPhoto(chat_id=update.message.chat.id, photo=post['img'], caption=post['desc'])
     # update.message.reply_text(ni.random_post())
+
+def redhead(bot, update):
+    gs = GoogleSearch()
+    rh = gs.random_redhead()
+    bot.sendPhoto(chat_id=update.message.chat.id, photo=rh, caption='By @{}'.format(update.effective_user.username))
 
 def debug (bot, update):
     update.message.reply_text(update.message.chat_id)
@@ -34,6 +40,7 @@ def setup():
     dispatcher.add_handler(CommandHandler('saymyname', saymyname))
     dispatcher.add_handler(CommandHandler('naointendo', naointendo))
     dispatcher.add_handler(CommandHandler('debug', debug))
+    dispatcher.add_handler(CommandHandler('redhead', redhead))
 
     # bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
     return dispatcher
