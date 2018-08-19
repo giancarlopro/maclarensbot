@@ -19,9 +19,9 @@ def naointendo(bot, update):
     ni = NaoIntendo()
     post = ni.random_post()
     caption = '''
-        {title}
-        --
-        {desc}
+    {title}
+    --
+    {desc}
     '''.format(title=post['title'], desc=post['desc'])
     if post['img'][-4:] == '.gif':
         bot.sendDocument(chat_id=update.message.chat.id, document=post['img'], caption=caption)
@@ -71,9 +71,9 @@ def sendnaointendo ():
     post = ni.random_post()
 
     caption = '''
-        {title}
-        --
-        {desc}
+    {title}
+    --
+    {desc}
     '''.format(title=post['title'], desc=post['desc'])
     
     if post['img'][-4:] == '.gif':
