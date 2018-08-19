@@ -12,14 +12,15 @@ class NaoIntendo:
         soup = BeautifulSoup(res.text, 'html.parser')
 
         for item in soup.findAll('item'):
-            desc = item.find('description')
+            desc  = item.find('description')
+            title = item.find('title').text.encode('utf8')
             if len(desc.text) > 0:
                 img_soup = BeautifulSoup(desc.text, 'html.parser')
                 try:
                     img = str(img_soup.find('img')['src']).encode('utf8')
                     p = str(img_soup.find('p').text).encode('utf8')
 
-                    return {'img': img, 'desc': p}
+                    return {'img': img, 'title': title, 'desc': p}
                 except:
                     pass
 
@@ -33,20 +34,21 @@ class NaoIntendo:
 
         for i in range(20):
             itens = soup.findAll('item')
-            desc = itens[i].find('description')
+            desc  = itens[i].find('description')
+            title = itens[i].find('title').text.encode('utf8')
             if len(desc.text) > 0:
                 img_soup = BeautifulSoup(desc.text, 'html.parser')
                 try:
                     img = str(img_soup.find('img')['src']).encode('utf8')
                     p = str(img_soup.find('p').text).encode('utf8')
 
-                    urls[img] = p
+                    urls[img] = [title, p]
                 except:
                     pass
         try:
             i = randint(0, len(urls.keys()))
             img = urls.keys()[i]
-            p = urls[img]
-            return {'img': img, 'desc': p}
+            info = urls[img]
+            return {'img': img, 'title': info[0], 'desc': info[1]}
         except:
             return self.last_post()
