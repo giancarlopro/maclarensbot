@@ -18,11 +18,7 @@ def saymyname(bot, update):
 def naointendo(bot, update):
     ni = NaoIntendo()
     post = ni.random_post()
-    caption = '''
-    {title}
-    --
-    {desc}
-    '''.format(title=post['title'], desc=post['desc'])
+    caption = "{title}\n--\n{desc}".format(title=post['title'], desc=post['desc'])
     if post['img'][-4:] == '.gif':
         bot.sendDocument(chat_id=update.message.chat.id, document=post['img'], caption=caption)
     else:
@@ -70,11 +66,7 @@ def sendnaointendo ():
     ni = NaoIntendo()
     post = ni.random_post()
 
-    caption = '''
-    {title}
-    --
-    {desc}
-    '''.format(title=post['title'], desc=post['desc'])
+    caption = "{title}\n--\n{desc}".format(title=post['title'], desc=post['desc'])
     
     if post['img'][-4:] == '.gif':
         bot.sendDocument(chat_id=maclarens_id, document=post['img'], caption=caption)
