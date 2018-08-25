@@ -13,7 +13,7 @@ class Topic:
             'lifestyle',
             'motivacional',
             'shia labeouf motivacional',
-            'é hora do show porra',
+            'e hora do show porra',
             'bambam',
             'how i met your mother',
             'breaking bad',
