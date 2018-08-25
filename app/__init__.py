@@ -9,26 +9,35 @@ from search import GoogleSearch
 
 app = Flask(__name__)
 
-token = os.environ.get("TOKEN")
+token = os.environ.get('TOKEN')
 port = int(os.environ.get('PORT', '443'))
+status_ok = '{"status": "OK"}'
+maclarenspub_id = '-1001240676821'
 
 def saymyname(bot, update):
-    update.message.reply_text("Heisenberg")
+    update.message.reply_text('Heisenberg')
 
-def naointendo(bot, update):
+def naointendo(bot, update = None, chat_id = None):
     ni = NaoIntendo()
     post = ni.random_post()
     caption = "{title}\n--\n{desc}".format(title=post['title'], desc=post['desc'])
-    if post['img'][-4:] == '.gif':
-        bot.sendDocument(chat_id=update.message.chat.id, document=post['img'], caption=caption)
-    else:
-        bot.sendPhoto(chat_id=update.message.chat.id, photo=post['img'], caption=caption)
-    # update.message.reply_text(ni.random_post())
 
-def redhead(bot, update):
+    if not chat_id:
+        chat_id = update.message.chat.id
+
+    if post['img'][-4:] == '.gif':
+        bot.sendDocument(chat_id=chat_id, document=post['img'], caption=caption)
+    else:
+        bot.sendPhoto(chat_id=chat_id, photo=post['img'], caption=caption)
+
+def redhead(bot, update = None, chat_id = None):
     gs = GoogleSearch()
-    rh = gs.random_redhead()
-    bot.sendPhoto(chat_id=update.message.chat.id, photo=rh, caption='By @{}'.format(update.effective_user.username))
+    redhead_url = gs.random_redhead()
+
+    if not chat_id:
+        chat_id = update.message.chat.id
+
+    bot.sendPhoto(chat_id=chat_id, photo=redhead_url)
 
 def debug (bot, update):
     update.message.reply_text(update.message.chat_id)
@@ -38,6 +47,7 @@ def setup():
     bot = Bot(token)
     
     dispatcher = Dispatcher(bot, None, workers=0)
+    
     dispatcher.add_handler(CommandHandler('saymyname', saymyname))
     dispatcher.add_handler(CommandHandler('naointendo', naointendo))
     dispatcher.add_handler(CommandHandler('debug', debug))
@@ -46,34 +56,33 @@ def setup():
     # bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
     return dispatcher
 
-@app.route("/HKMLFFGP/sendjoninhas")
-def sendjoninhas ():
+@app.route("/send/joninhas")
+def send_joninhas ():
     global token
     bot = Bot(token)
 
-    maclarens_id = "-1001240676821"
+    global maclarenspub_id
 
-    bot.sendMessage(chat_id=maclarens_id, text="It's time for *Joninhas*", parse_mode='Markdown')
-    bot.sendSticker(chat_id=maclarens_id, sticker="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
-    return "Ok"
+    bot.sendMessage(
+        chat_id=maclarenspub_id,
+        text="It's time for *Joninhas*",
+        parse_mode='Markdown'
+    )
+    bot.sendSticker(chat_id=maclarenspub_id, sticker="CAADAQADCQADEcFSHDYMLlVh2wPKAg")
 
-@app.route("/sni")
-def sendnaointendo ():
+    global status_ok
+    return status_ok
+
+@app.route("/send/naointendo")
+def send_naointendo ():
     global token
     bot = Bot(token)
 
-    maclarens_id = "-1001240676821"
-    ni = NaoIntendo()
-    post = ni.random_post()
+    global maclarenspub_id
+    naointendo(bot, chat_id=maclarenspub_id)
 
-    caption = "{title}\n--\n{desc}".format(title=post['title'], desc=post['desc'])
-    
-    if post['img'][-4:] == '.gif':
-        bot.sendDocument(chat_id=maclarens_id, document=post['img'], caption=caption)
-    else:
-        bot.sendPhoto(chat_id=maclarens_id, photo=post['img'], caption=caption)
-    
-    return 'Worked!'
+    global status_ok
+    return status_ok
 
 @app.route('/' + str(token), methods=['GET', 'POST'])
 def webhook ():
@@ -87,11 +96,14 @@ def webhook ():
     update = Update.de_json(json.loads(text), bot)
 
     dispatcher.process_update(update)
-    return "Ok"
+
+    global status_ok
+    return status_ok
 
 @app.route('/')
 def wellcome ():
-    return "OK"
+    global status_ok
+    return status_ok
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
