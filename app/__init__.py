@@ -55,6 +55,9 @@ def randompic(bot, update = None, chat_id = None, args = None):
         query = ' '.join(args)
     else:
         query = Topic.random()
+    
+    if not chat_id:
+        chat_id = update.message.chat.id
 
     random_url = gs.random_image(query)
 
