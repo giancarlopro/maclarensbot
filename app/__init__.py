@@ -1,11 +1,15 @@
 import os
 import json
+import random
+
 from flask import Flask, request
+
 from telegram.ext import CommandHandler, Dispatcher
 from telegram import Bot, Update
 
 from naointendo import NaoIntendo
 from search import GoogleSearch
+from topics import Topic
 
 app = Flask(__name__)
 
@@ -42,16 +46,31 @@ def redhead(bot, update = None, chat_id = None):
 def debug (bot, update):
     update.message.reply_text(update.message.chat_id)
 
+def randompic(bot, update = None, chat_id = None, args = None):
+    gs = GoogleSearch()
+
+    global topics
+
+    if args:
+        query = ' '.join(args)
+    else:
+        query = Topic.random()
+
+    random_url = gs.random_image(query)
+
+    bot.sendPhoto(chat_id=chat_id, photo=random_url)
+
 def setup():
     global token
     bot = Bot(token)
     
     dispatcher = Dispatcher(bot, None, workers=0)
-    
+
     dispatcher.add_handler(CommandHandler('saymyname', saymyname))
     dispatcher.add_handler(CommandHandler('naointendo', naointendo))
     dispatcher.add_handler(CommandHandler('debug', debug))
     dispatcher.add_handler(CommandHandler('redhead', redhead))
+    dispatcher.add_handler(CommandHandler('randompic', randompic, pass_args=True))
 
     # bot.set_webhook("https://maclarensbot.herokuapp.com/" + token)
     return dispatcher
