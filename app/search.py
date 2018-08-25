@@ -15,9 +15,8 @@ class GoogleSearch:
             requests.get(self.url.format(query=query), headers=self.headers).text,
             'html.parser'
         )
-
-    def random_redhead(self):
-        soup = self.get_soup('redhead girl')
+    def random_image(self, query):
+        soup = self.get_soup(query)
         self.links = list()
         for s in soup.find_all('div', {'class': 'rg_meta'}):
             try:
@@ -25,3 +24,6 @@ class GoogleSearch:
             except:
                 continue
         return self.links[randint(0, len(self.links))]
+
+    def random_redhead(self):
+        return self.random_image(query='redhead girl')
