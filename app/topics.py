@@ -20,7 +20,22 @@ class Topic:
             'badass',
             'game of thrones',
             'arya stark',
-            'starks'
+            'starks',
+            'web development',
+            'cars',
+            'motorcycles',
+            'comedy',
+            'ambient',
+            'lakes',
+            'mountains',
+            'beaches',
+            'music clubs',
+            'beatbox',
+            'drinking',
+            'wine',
+            'beautiful sunset',
+            'moonlite',
+            'one piece'
         ]
 
         return random.choice(topics)
