@@ -7,9 +7,9 @@ from flask import Flask, request
 from telegram.ext import CommandHandler, Dispatcher
 from telegram import Bot, Update
 
-from naointendo import NaoIntendo
-from search import GoogleSearch
-from topics import Topic
+from . naointendo import NaoIntendo
+from . search import GoogleSearch
+from . topics import Topic
 
 app = Flask(__name__)
 
